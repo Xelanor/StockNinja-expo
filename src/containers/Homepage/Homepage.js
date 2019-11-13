@@ -1,46 +1,39 @@
 import React, { Component } from "react";
 import axios from "axios";
 
-import MovieBoxes from "../../components/MovieBoxes/MovieBoxes";
-
-import classes from "./Homepage.module.css";
+import StockTable from "../../components/StockTable/StockTable";
 
 class Homepage extends Component {
   state = {
-    movies: null
+    stocks: null,
+    open: "SODA.IS"
   };
 
   componentDidMount() {
     axios
-      .get("/api/movies")
-      .then(res => this.setState({ movies: res.data }))
+      .get(
+        "https://my4wv99yv6.execute-api.us-east-1.amazonaws.com/default/fetch_stock_data"
+      )
+      .then(res => this.setState({ stocks: res.data }))
       .catch(err => console.log(err));
   }
 
+  onOpenInfo = stock => {
+    this.setState({ open: stock });
+  };
+
   render() {
-    let page;
-    if (this.state.movies) {
-      page = (
-        <>
-          <div className="flex my-4 text-white text-xl font-normal justify-center">
-            Yeni Filmler
-          </div>
-          <MovieBoxes movies={this.state.movies} />
-          <div className="flex my-4 text-white text-xl font-normal justify-center">
-            Yeni Filmler
-          </div>
-          <MovieBoxes movies={this.state.movies} />
-          <div className="flex my-4 text-white text-xl font-normal justify-center">
-            Yeni Filmler
-          </div>
-          <MovieBoxes movies={this.state.movies} />
-        </>
-      );
-    } else {
-      page = "loading";
+    if (!this.state.stocks) {
+      return <div>yükleniyor</div>;
     }
     return (
-      <content className={classes.content + " w-full m-4"}>{page}</content>
+      <div>
+        <StockTable
+          stocks={this.state.stocks}
+          onOpenInfo={this.onOpenInfo}
+          open={this.state.open}
+        />
+      </div>
     );
   }
 }
