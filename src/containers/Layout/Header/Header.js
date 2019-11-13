@@ -8,7 +8,7 @@ class Header extends Component {
 
   render() {
     return (
-      <div className="flex justify-center font-bold text-3xl text-stock mb-2">
+      <div className="flex justify-center font-bold text-3xl text-stock3 mb-2">
         StockNinja
       </div>
     );

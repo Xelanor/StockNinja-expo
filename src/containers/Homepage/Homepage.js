@@ -6,17 +6,21 @@ import StockTable from "../../components/StockTable/StockTable";
 class Homepage extends Component {
   state = {
     stocks: null,
-    open: "SODA.IS"
+    open: ""
   };
 
   componentDidMount() {
+    this.getData();
+  }
+
+  getData = () => {
     axios
       .get(
         "https://my4wv99yv6.execute-api.us-east-1.amazonaws.com/default/fetch_stock_data"
       )
       .then(res => this.setState({ stocks: res.data }))
       .catch(err => console.log(err));
-  }
+  };
 
   onOpenInfo = stock => {
     this.setState({ open: stock });
@@ -33,6 +37,14 @@ class Homepage extends Component {
           onOpenInfo={this.onOpenInfo}
           open={this.state.open}
         />
+        <div className="flex w-full justify-center mt-4">
+          <div
+            onClick={this.getData}
+            className="flex justify-center w-24 py-2 bg-stock5 rounded hover:bg-stock4 cursor-pointer"
+          >
+            Yenile
+          </div>
+        </div>
       </div>
     );
   }
