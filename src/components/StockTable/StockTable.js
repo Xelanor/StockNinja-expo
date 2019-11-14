@@ -38,8 +38,8 @@ const StockTable = props => {
           <td
             data-th="Fark"
             className={classnames("pr-2", {
-              "text-red-400": rate > 0,
-              "text-green-400": rate <= 0
+              "text-red-400": rate < 0,
+              "text-green-400": rate >= 0
             })}
           >
             %{Math.abs(rate)}
