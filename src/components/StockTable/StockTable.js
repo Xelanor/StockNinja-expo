@@ -28,8 +28,8 @@ const StockTable = props => {
           <td
             data-th="Fiyat"
             className={classnames({
-              "text-red-400": rate > 0,
-              "text-green-400": rate <= 0
+              "text-red-400": rate < 0,
+              "text-green-400": rate >= 0
             })}
           >
             {data[stock]["price"]}
